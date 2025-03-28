@@ -18,15 +18,18 @@ public class Kernel extends JavaPlugin {
 
     @Override
     public void onEnable () {
+        long start = System.currentTimeMillis();
+        logger.info("正在加载插件Kernel Class：" + getClass().getName());
         plugin = getPlugin(getClass());
         server = getServer();
         logger = getLogger();
         networkManager = new ClientNMangerInstant();
         pluginManager = server.getPluginManager();
+        logger.info("加载完成，耗时 " + (System.currentTimeMillis() - start) + " ms");
     }
 
     @Override
     public void onDisable () {
-
+        logger.info("正在卸载插件 MSCPO-CloudBlackList");
     }
 }
