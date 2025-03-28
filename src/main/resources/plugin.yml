@@ -1,0 +1,6 @@
+name: MSCPO-CloudBlackList
+version: '${project.version}'
+main: cn.etstmc.cloudblacklist.Kernel
+
+softdepend: [ "PlaceholderAPI" ]
+
