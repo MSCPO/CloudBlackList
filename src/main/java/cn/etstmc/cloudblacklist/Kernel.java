@@ -1,6 +1,7 @@
 package cn.etstmc.cloudblacklist;
 
 import cn.etstmc.cloudblacklist.api.network.client.ClientNetworkManager;
+import cn.etstmc.cloudblacklist.network.PacketManager;
 import cn.etstmc.cloudblacklist.network.client.ClientNMangerInstant;
 import org.bukkit.Server;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -19,6 +20,7 @@ public class Kernel extends JavaPlugin {
     public static PluginManager pluginManager;
     public static File dataFolder;
     public static YamlConfiguration config;
+    public static PacketManager packetManager;
 
     @Override
     public void onEnable () {
@@ -32,6 +34,7 @@ public class Kernel extends JavaPlugin {
         dataFolder = getDataFolder();
         saveResource("config.yml", false);
         config = YamlConfiguration.loadConfiguration(new File(dataFolder, "config.yml"));
+        packetManager = new PacketManager();
         logger.info("加载完成，耗时 " + (System.currentTimeMillis() - start) + " ms");
     }
 
