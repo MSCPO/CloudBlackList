@@ -29,12 +29,16 @@ public class Kernel extends JavaPlugin {
         plugin = getPlugin(getClass());
         server = getServer();
         logger = getLogger();
-        networkManager = new ClientNMangerInstant();
         pluginManager = server.getPluginManager();
         dataFolder = getDataFolder();
         saveResource("config.yml", false);
         config = YamlConfiguration.loadConfiguration(new File(dataFolder, "config.yml"));
+        networkManager = new ClientNMangerInstant(config.getString("network.host"), config.getInt("network.port"));
         packetManager = new PacketManager();
+        //
+        Register.init();
+        NetworkInit.init();
+        //
         logger.info("加载完成，耗时 " + (System.currentTimeMillis() - start) + " ms");
     }
 

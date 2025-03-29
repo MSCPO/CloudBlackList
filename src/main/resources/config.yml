@@ -4,3 +4,7 @@ msg-prefix: "&bMSCPO-&rCloudBlackList |"
 player:
   join:
     msg: "%msg-prefix% &7正在从MSCPO黑名单数据库中验证你是否被封禁……"
+
+network:
+  host: "etstmc.cn"
+  port: 35565

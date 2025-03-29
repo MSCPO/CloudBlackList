@@ -1,4 +1,4 @@
-package cn.etstmc.cloudblacklist.network.client.packets.types;
+package cn.etstmc.cloudblacklist.network.packettyps;
 
 import cn.etstmc.cloudblacklist.network.Packet;
 import cn.etstmc.cloudblacklist.network.PacketType;

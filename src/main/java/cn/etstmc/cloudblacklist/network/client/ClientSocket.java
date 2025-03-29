@@ -14,10 +14,12 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 public class ClientSocket {
     private final String host;
     private final int port;
+    private final TCPClient client;
 
     public ClientSocket(String host, int port) {
         this.host = host;
         this.port = port;
+        this.client = new TCPClient();
     }
 
 
@@ -33,18 +35,17 @@ public class ClientSocket {
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline().addLast(new PacketEncoder());
                             ch.pipeline().addLast(new PacketDecoder());
-                            ch.pipeline().addLast(new TCPClient());
+                            ch.pipeline().addLast(client);
                         }
                     });
-
-            // 启动客户端
             ChannelFuture future = bootstrap.connect(host, port).sync();
-
-            // 等待客户端关闭
             future.channel().closeFuture().sync();
         } finally {
-            // 优雅关闭线程池
             group.shutdownGracefully();
         }
+    }
+
+    public TCPClient getClient() {
+        return client;
     }
 }
