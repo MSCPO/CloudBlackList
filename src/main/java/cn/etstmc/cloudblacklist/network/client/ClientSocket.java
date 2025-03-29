@@ -1,6 +1,5 @@
 package cn.etstmc.cloudblacklist.network.client;
 
-import cn.etstmc.cloudblacklist.Kernel;
 import cn.etstmc.cloudblacklist.network.PacketDecoder;
 import cn.etstmc.cloudblacklist.network.PacketEncoder;
 import io.netty.bootstrap.Bootstrap;
@@ -11,7 +10,6 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.util.NettyRuntime;
 
 public class ClientSocket {
     private final String host;

@@ -15,7 +15,7 @@ public class DataBasePacketType extends PacketType {
     }
 
     @Override
-    public Class<? extends Packet> getPacketType(int subtype) {
+    public Class<? extends Packet> getPacket(int subtype) {
         return types.get(subtype);
     }
 
