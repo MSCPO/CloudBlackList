@@ -48,6 +48,12 @@ public class TCPClient extends SimpleChannelInboundHandler<Packet> {
     }
 
     @Override
+    public void channelInactive (ChannelHandlerContext ctx) throws Exception {
+        super.channelInactive(ctx);
+        SERVER_CHANNEL = null;
+    }
+
+    @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         if (cause instanceof RuntimeException) {
             logger.warning("发生运行时异常：\n" + ExceptionUtils.getStackTrace(cause));
