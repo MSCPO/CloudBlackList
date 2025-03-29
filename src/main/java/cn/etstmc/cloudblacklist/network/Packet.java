@@ -35,4 +35,8 @@ public abstract class Packet {
     public void setBody(String body) {
         this.body = body;
     }
+
+    public @interface packet {
+
+    }
 }

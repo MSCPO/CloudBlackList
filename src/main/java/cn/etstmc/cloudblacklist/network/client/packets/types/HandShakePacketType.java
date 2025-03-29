@@ -1,4 +1,4 @@
-package cn.etstmc.cloudblacklist.network.client.packets;
+package cn.etstmc.cloudblacklist.network.client.packets.types;
 
 import cn.etstmc.cloudblacklist.network.Packet;
 import cn.etstmc.cloudblacklist.network.PacketType;
@@ -6,10 +6,11 @@ import cn.etstmc.cloudblacklist.network.PacketType;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class DataBasePacketType extends PacketType {
+public class HandShakePacketType extends PacketType {
     private final Map<Integer, Class<? extends Packet>> types;
+    public static final int type = 0;
 
-    public DataBasePacketType() {
+    public HandShakePacketType() {
         this.types = new ConcurrentHashMap<>();
     }
 

@@ -20,7 +20,7 @@ public class PacketDecoder extends ByteToMessageDecoder {
                 in.readBytes(bodyBytes);
                 String body = new String(bodyBytes, StandardCharsets.UTF_8);
                 Packet packet = Kernel.packetManager.getPacket(Kernel.packetManager.getPacketType(type).getPacketType(subType),
-                        type, subType, body);
+                        body);
                 out.add(packet);
             }
         }
