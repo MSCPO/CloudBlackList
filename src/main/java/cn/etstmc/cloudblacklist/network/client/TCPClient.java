@@ -28,7 +28,7 @@ public class TCPClient extends SimpleChannelInboundHandler<Packet> {
     }
 
     @Override
-    protected void channelRead0(ChannelHandlerContext channelHandlerContext, Packet packet) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, Packet packet) throws Exception {
         PacketType pt = Kernel.packetManager.getPacketType(packet.getType());
         if (pt == null) return;
         Class<? extends PacketType> type = pt.getClass();
@@ -38,7 +38,7 @@ public class TCPClient extends SimpleChannelInboundHandler<Packet> {
             return;
         }
         for (PacketListener<? extends Packet> packetListener : list) {
-            packetListener.checkPacket(packet);
+            packetListener.checkPacket(packet, ctx);
         }
     }
 

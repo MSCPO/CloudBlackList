@@ -15,6 +15,7 @@ public class ClientSocket {
     private final String host;
     private final int port;
     private final TCPClient client;
+    private EventLoopGroup group;
 
     public ClientSocket(String host, int port) {
         this.host = host;
@@ -24,7 +25,7 @@ public class ClientSocket {
 
 
     public void start() throws Exception {
-        EventLoopGroup group = new NioEventLoopGroup();
+        group = new NioEventLoopGroup();
         try {
             Bootstrap bootstrap = new Bootstrap();
             bootstrap.group(group)
@@ -47,5 +48,9 @@ public class ClientSocket {
 
     public TCPClient getClient() {
         return client;
+    }
+
+    public void kill () {
+        if (group != null && !group.isShutdown()) group.shutdownGracefully();
     }
 }
