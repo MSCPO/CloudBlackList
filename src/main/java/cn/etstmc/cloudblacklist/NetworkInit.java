@@ -1,5 +1,7 @@
 package cn.etstmc.cloudblacklist;
 
+import cn.etstmc.cloudblacklist.api.minecraftserver.RunMode;
+import cn.etstmc.cloudblacklist.api.minecraftserver.ServerType;
 import cn.etstmc.cloudblacklist.network.client.packets.ServerBoundHandShakePacket;
 import cn.etstmc.cloudblacklist.network.packetlisteners.clientbound.HandShakePacketListener;
 import cn.etstmc.cloudblacklist.network.packettyps.DataBasePacketType;
@@ -28,7 +30,9 @@ public class NetworkInit {
             SC.writeAndFlush(new ServerBoundHandShakePacket("TEST",
                     Kernel.plugin.getDescription().getVersion(),
                     Bukkit.getBukkitVersion(),
-                    Kernel.server.getVersion()));
+                    Kernel.server.getVersion(),
+                    ServerType.BUKKIT,
+                    RunMode.PLUGIN));
         }).start();
     }
 }

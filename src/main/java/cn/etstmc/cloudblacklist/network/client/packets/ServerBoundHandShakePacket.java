@@ -1,8 +1,9 @@
 package cn.etstmc.cloudblacklist.network.client.packets;
 
+import cn.etstmc.cloudblacklist.api.minecraftserver.RunMode;
+import cn.etstmc.cloudblacklist.api.minecraftserver.ServerType;
 import cn.etstmc.cloudblacklist.network.Packet;
 import cn.etstmc.cloudblacklist.network.packettyps.HandShakePacketType;
-import cn.etstmc.cloudblacklist.utils.ArgumentUtils;
 import cn.etstmc.cloudblacklist.utils.Json;
 
 import java.util.HashMap;
@@ -11,42 +12,42 @@ import java.util.Map;
 import static cn.etstmc.cloudblacklist.network.PacketManager.gson;
 
 public class ServerBoundHandShakePacket extends Packet {
-    private String serverName, pluginVersion, bukkitVersion, serverVersion;
+    private String serverName, pluginVersion, apiVersion, serverVersion;
+    private ServerType type;
+    private RunMode mode;
 
-    public ServerBoundHandShakePacket (String serverName, String pluginVersion, String bukkitVersion, String serverVersion) {
-        super (HandShakePacketType.type, 0, body(serverName, pluginVersion, bukkitVersion, serverVersion));
+    public ServerBoundHandShakePacket (String serverName, String pluginVersion, String bukkitVersion, String serverVersion, ServerType type, RunMode mode) {
+        super (HandShakePacketType.type, 0, body(serverName, pluginVersion, bukkitVersion, serverVersion, type, mode));
         this.serverName = serverName;
         this.pluginVersion = pluginVersion;
-        this.bukkitVersion = bukkitVersion;
+        this.apiVersion = bukkitVersion;
         this.serverVersion = serverVersion;
+        this.type = type;
+        this.mode = mode;
     }
 
-    private static String body (String serverName, String pluginVersion, String bukkitVersion, String serverVersion) {
+    private static String body (String serverName, String pluginVersion, String bukkitVersion, String serverVersion, ServerType type, RunMode mode) {
         Map<String, Object> data = new HashMap<>();
         data.put("ServerName", serverName);
         data.put("PluginVersion", pluginVersion);
         data.put("BukkitVersion", bukkitVersion);
         data.put("ServerVersion", serverVersion);
+        data.put("ServerType", type.toString());
+        data.put("RunMode", mode.toString());
         return gson.toJson(data);
     }
 
     @packet
     public ServerBoundHandShakePacket (String body) {
         super(HandShakePacketType.type, 0, body);
-        Map<String, Object> data = Json.decodeJson(body);
-        if (data.isEmpty()) return;
-        ArgumentUtils.checkArgument(data.containsKey("ServerName") && data.get("ServerName") instanceof String,
-                "解码数据包时发现不完整的数据包");
-        ArgumentUtils.checkArgument(data.containsKey("PluginVersion") && data.get("PluginVersion") instanceof String,
-                "解码数据包时发现不完整的数据包");
-        ArgumentUtils.checkArgument(data.containsKey("BukkitVersion") && data.get("BukkitVersion") instanceof String,
-                "解码数据包时发现不完整的数据包");
-        ArgumentUtils.checkArgument(data.containsKey("ServerVersion") && data.get("ServerVersion") instanceof String,
-                "解码数据包时发现不完整的数据包");
-        this.serverName = (String) data.get("ServerName");
-        this.pluginVersion = (String) data.get("PluginVersion");
-        this.bukkitVersion = (String) data.get("BukkitVersion");
-        this.serverVersion = (String) data.get("ServerVersion");
+        Json.DecodedJson data = Json.decoded(body);
+        if (data.getMap().isEmpty()) return;
+        this.serverName = data.getString("ServerName");
+        this.pluginVersion = data.getString("PluginVersion");
+        this.apiVersion = data.getString("BukkitVersion");
+        this.serverVersion = data.getString("ServerVersion");
+        this.type = data.getEnum(ServerType.class, "ServerType");
+        this.mode = data.getEnum(RunMode.class, "RunMode");
     }
 
     public String getServerName() {
@@ -65,12 +66,12 @@ public class ServerBoundHandShakePacket extends Packet {
         this.pluginVersion = pluginVersion;
     }
 
-    public String getBukkitVersion() {
-        return bukkitVersion;
+    public String getApiVersion() {
+        return apiVersion;
     }
 
-    public void setBukkitVersion(String bukkitVersion) {
-        this.bukkitVersion = bukkitVersion;
+    public void setApiVersion(String bukkitVersion) {
+        this.apiVersion = bukkitVersion;
     }
 
     public String getServerVersion() {
@@ -79,5 +80,21 @@ public class ServerBoundHandShakePacket extends Packet {
 
     public void setServerVersion(String serverVersion) {
         this.serverVersion = serverVersion;
+    }
+
+    public ServerType getServerType() {
+        return type;
+    }
+
+    public void setType(ServerType type) {
+        this.type = type;
+    }
+
+    public RunMode getMode() {
+        return mode;
+    }
+
+    public void setMode(RunMode mode) {
+        this.mode = mode;
     }
 }
