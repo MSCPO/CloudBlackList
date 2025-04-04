@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.time.Instant;
 import java.util.Map;
 
 public class Json {
@@ -19,6 +18,7 @@ public class Json {
         return json == null ? null : json.isEmpty() ? null : new DecodedJson(decodeJson(json));
     }
 
+    @SuppressWarnings("unchecked")
     public static class DecodedJson {
         private final Map<String, Object> map;
 
@@ -58,6 +58,11 @@ public class Json {
         public <C extends Enum<C>> C getEnum (Class<C> clazz, String path) {
             ArgumentUtils.checkArgument(path, map);
             return C.valueOf(clazz, String.valueOf(map.get(path)));
+        }
+
+        public <K, V> Map<K, V> getKeyMap (Class<K> kClass, Class<V> vClass, String path) {
+            ArgumentUtils.checkArgument(path, map, Map.class);
+            return (Map<K, V>) map.get(path);
         }
     }
 }
