@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.time.Instant;
 import java.util.Map;
 
 public class Json {
@@ -35,22 +36,22 @@ public class Json {
         }
 
         public boolean getBoolean (String path) {
-            ArgumentUtils.checkArgument(path, map, boolean.class);
+            ArgumentUtils.checkArgument(path, map, Boolean.class);
             return (boolean) map.get(path);
         }
 
         public int getInt (String path) {
-            ArgumentUtils.checkArgument(path, map, int.class);
+            ArgumentUtils.checkArgument(path, map, Integer.class);
             return (int) map.get(path);
         }
 
         public float getFloat (String path) {
-            ArgumentUtils.checkArgument(path, map, float.class);
+            ArgumentUtils.checkArgument(path, map, Float.class);
             return (float) map.get(path);
         }
 
         public long getLong (String path) {
-            ArgumentUtils.checkArgument(path, map, long.class);
+            ArgumentUtils.checkArgument(path, map, Long.class);
             return (long) map.get(path);
         }
 
