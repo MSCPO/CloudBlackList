@@ -3,6 +3,7 @@ package cn.etstmc.cloudblacklist;
 import cn.etstmc.cloudblacklist.api.network.client.ClientNetworkManager;
 import cn.etstmc.cloudblacklist.network.PacketManager;
 import cn.etstmc.cloudblacklist.network.client.ClientNMangerInstant;
+import io.netty.channel.ChannelHandlerContext;
 import org.bukkit.Server;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
@@ -17,6 +18,7 @@ public class Kernel extends JavaPlugin {
     public static Server server;
     public static Logger logger;
     public static ClientNetworkManager networkManager;
+    public static ChannelHandlerContext SERVER_CHANNEL;
     public static PluginManager pluginManager;
     public static File dataFolder;
     public static YamlConfiguration config;

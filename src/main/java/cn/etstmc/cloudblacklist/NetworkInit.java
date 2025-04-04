@@ -27,7 +27,6 @@ public class NetworkInit {
             while (Kernel.networkManager.getClient().getSERVER_CHANNEL() == null) {
                 Thread.currentThread().setName("WAITING");
             }
-            System.out.println("sending");
             ChannelHandlerContext SC = Kernel.networkManager.getClient().getSERVER_CHANNEL();
             SC.writeAndFlush(new ServerBoundHandShakePacket("TEST",
                     Kernel.plugin.getDescription().getVersion(),
@@ -35,6 +34,7 @@ public class NetworkInit {
                     Kernel.server.getVersion(),
                     ServerType.BUKKIT,
                     RunMode.PLUGIN));
+            Kernel.SERVER_CHANNEL = SC;
         }).start();
     }
 }

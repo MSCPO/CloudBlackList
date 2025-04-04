@@ -37,6 +37,7 @@ public class ClientSocket {
                             ch.pipeline().addLast(new PacketEncoder());
                             ch.pipeline().addLast(new PacketDecoder());
                             ch.pipeline().addLast(client);
+                            Thread.currentThread().setName("BL-Client-Thread");
                         }
                     });
             ChannelFuture future = bootstrap.connect(host, port).sync();
