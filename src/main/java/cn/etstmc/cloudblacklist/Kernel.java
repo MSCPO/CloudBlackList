@@ -1,6 +1,7 @@
 package cn.etstmc.cloudblacklist;
 
 import cn.etstmc.cloudblacklist.api.network.client.ClientNetworkManager;
+import cn.etstmc.cloudblacklist.listeners.PlayerEventListeners;
 import cn.etstmc.cloudblacklist.network.PacketManager;
 import cn.etstmc.cloudblacklist.network.client.ClientNMangerInstant;
 import io.netty.channel.ChannelHandlerContext;
@@ -40,6 +41,7 @@ public class Kernel extends JavaPlugin {
         //
         Register.init();
         NetworkInit.init();
+        pluginManager.registerEvents(new PlayerEventListeners(), plugin);
         //
         logger.info("加载完成，耗时 " + (System.currentTimeMillis() - start) + " ms");
     }
