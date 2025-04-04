@@ -2,6 +2,7 @@ package cn.etstmc.cloudblacklist;
 
 import cn.etstmc.cloudblacklist.api.minecraftserver.RunMode;
 import cn.etstmc.cloudblacklist.api.minecraftserver.ServerType;
+import cn.etstmc.cloudblacklist.network.client.packets.ServerBoundDatabaseCheckPacket;
 import cn.etstmc.cloudblacklist.network.client.packets.ServerBoundHandShakePacket;
 import cn.etstmc.cloudblacklist.network.packetlisteners.clientbound.HandShakePacketListener;
 import cn.etstmc.cloudblacklist.network.packettyps.DataBasePacketType;
@@ -18,6 +19,7 @@ public class NetworkInit {
         //
         Register.registerPacket(HandShakePacketType.class, ServerBoundHandShakePacket.class, 0);
         Register.registerPacket(HandShakePacketType.class, ClientBoundHandShakePacket.class, 1);
+        Register.registerPacket(DataBasePacketType.class, ServerBoundDatabaseCheckPacket.class, 0);
         //
         Kernel.networkManager.getClient().registerPacketListener(HandShakePacketType.class, new HandShakePacketListener());
         //

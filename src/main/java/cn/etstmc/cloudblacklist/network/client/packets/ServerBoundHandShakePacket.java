@@ -41,7 +41,7 @@ public class ServerBoundHandShakePacket extends Packet {
     public ServerBoundHandShakePacket (String body) {
         super(HandShakePacketType.type, 0, body);
         Json.DecodedJson data = Json.decoded(body);
-        if (data.getMap().isEmpty()) return;
+        if (data == null) return;
         this.serverName = data.getString("ServerName");
         this.pluginVersion = data.getString("PluginVersion");
         this.apiVersion = data.getString("BukkitVersion");

@@ -15,7 +15,7 @@ public class Json {
     }
 
     public static DecodedJson decoded (String json) {
-        return new DecodedJson(decodeJson(json));
+        return json == null ? null : json.isEmpty() ? null : new DecodedJson(decodeJson(json));
     }
 
     public static class DecodedJson {
